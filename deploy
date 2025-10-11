@@ -9,33 +9,33 @@ pipeline {
     stages {
         stage('clone'){
             steps{
-                echo'cloning'
+                echo 'cloning'
                 git branch:'master',url:'https://github.com/abhinavvv2004/DevOpsClassCodes.git/'
             }
         }
         stage('compile'){
             steps{
-                echo'compiling'
-                sh'mvn clean compile'
+                echo 'compiling'
+                sh 'mvn clean compile'
             }
         }
         stage('code review'){
             steps{
                 echo'running pmd'
-                sh'mvn pmd:pmd'
+                sh 'mvn pmd:pmd'
             }
         }
         stage('unit test'){
            steps{
                echo'testing'
-               sh'mvn test'
+               sh 'mvn test'
 
            }
       }
       stage('package'){
          steps{
              echo'packaging'
-             sh'mvn package'
+             sh 'mvn package'
              archiveArtifacts artifacts:'**/*.war',fingerprint:true
           }
       }
@@ -50,7 +50,7 @@ pipeline {
             )
         ],
         contextPath: '/qaenv',
-        war: **/**.war'
+        war: **/*.war'
     }
 }
     }
