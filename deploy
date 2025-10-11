@@ -1,11 +1,9 @@
 pipeline {
     agent any
-
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "mymaven"
     }
-
     stages {
         stage('clone'){
             steps{
@@ -29,7 +27,6 @@ pipeline {
            steps{
                echo'testing'
                sh 'mvn test'
-
            }
       }
       stage('package'){
@@ -40,18 +37,18 @@ pipeline {
           }
       }
        stage('deploy to QA'){
-    steps{
-        echo 'deploying to tomcat'
-        deploy adapters: [
-            tomcat9(
-                credentialsId: 'tomcat1',
-                path: '',
-                url: 'http://65.1.168.140:8080/'
-            )
-        ],
-        contextPath: '/qaenv',
-        war: **/*.war'
-    }
-}
+           steps{
+               echo 'deploying to tomcat'
+               deploy adapters: [
+                   tomcat9(
+                       credentialsId: 'tomcat1',
+                       path: '',
+                       url: 'http://65.1.168.140:8080/'
+                   )
+               ],
+               contextPath: '/qaenv',
+               war: '**/*.war'
+           }
+       }
     }
 }
